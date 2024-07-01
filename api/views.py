@@ -22,7 +22,7 @@ class VistorView(generics.GenericAPIView):
         location_response = requests.get(f'https://api.ip2location.io/?key={geolocation_service}&ip={client_ip}')
         location_data = location_response.json()
         print(location_data)
-        city = location_data.get('city', 'Unknown')
+        city = location_data.get('city_name', 'Unknown')
 
         openweather_api_key = weather_api_service
         weather_response = requests.get(f'http://api.openweathermap.org/data/2.5/weather?q={city}&appid={openweather_api_key}&units=metric')
