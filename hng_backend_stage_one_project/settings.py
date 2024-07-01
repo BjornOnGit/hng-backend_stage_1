@@ -29,7 +29,7 @@ SECRET_KEY = env.str('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG', default=False)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['goldfish-app-qwis4.ondigitalocean.app', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -62,6 +62,10 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOW_ALL_ORIGINS= True
+CSRF_TRUSTED_ORIGINS = [
+    'https://goldfish-app-qwis4.ondigitalocean.app',
+    'localhost:8000',
+]
 
 ROOT_URLCONF = 'hng_backend_stage_one_project.urls'
 
