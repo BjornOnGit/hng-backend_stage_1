@@ -64,7 +64,7 @@ MIDDLEWARE = [
 CORS_ALLOW_ALL_ORIGINS= True
 CSRF_TRUSTED_ORIGINS = [
     'https://goldfish-app-qwis4.ondigitalocean.app',
-    'localhost:8000',
+    'http://localhost:8000',
 ]
 
 ROOT_URLCONF = 'hng_backend_stage_one_project.urls'

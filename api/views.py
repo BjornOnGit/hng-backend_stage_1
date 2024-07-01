@@ -8,12 +8,20 @@ from django.conf import settings
 geolocation_service = settings.IP2LOCATION_API_KEY
 weather_api_service = settings.OPENWEATHER_MAP_API_KEY
 class VistorView(generics.GenericAPIView):
+    def get_client_ip(self, request):
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0]
+        else:
+            ip = request.META.get('REMOTE_ADDR', '127.0.0.1')
+        return ip
     def get(self, request):
         visitor_name = request.query_params.get('visitor_name', 'Guest')
-        client_ip = request.META.get('REMOTE_ADDR', '127.0.0.1')
+        client_ip = self.get_client_ip(request)
         
         location_response = requests.get(f'https://api.ip2location.io/?key={geolocation_service}&ip={client_ip}')
         location_data = location_response.json()
+        print(location_data)
         city = location_data.get('city', 'Unknown')
 
         openweather_api_key = weather_api_service
