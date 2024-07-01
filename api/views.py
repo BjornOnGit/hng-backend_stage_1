@@ -21,18 +21,19 @@ class VistorView(generics.GenericAPIView):
         
         location_response = requests.get(f'https://api.ip2location.io/?key={geolocation_service}&ip={client_ip}')
         location_data = location_response.json()
-        # print(location_data)
+        print(location_data)
         city = location_data.get('city_name', 'Unknown')
 
         openweather_api_key = weather_api_service
         weather_response = requests.get(f'http://api.openweathermap.org/data/2.5/weather?q={city}&appid={openweather_api_key}&units=metric')
         weather_data = weather_response.json()
+        print(weather_response)
         temperature = weather_data['main']['temp'] if 'main' in weather_data else 'unknown'
 
         data = {
             "client_ip": client_ip,
             "location": city,
-            "greeting": f"Hello, {visitor_name}! The temperature is {temperature} in {city}"
+            "greeting": f"Hello, {visitor_name}! The temperature is {temperature} Celsius in {city}"
         }
 
         serializer = VisitorSerializer(data=data)
